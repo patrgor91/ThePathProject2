@@ -1,5 +1,6 @@
 package com.example.thepathproject2.entities;
 
+import com.example.thepathproject2.models.PlaceType;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
@@ -10,9 +11,24 @@ import lombok.Setter;
     @Table(name = "PLACE")
     public class Place {
 
+
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Integer id;
+        private String name;
+        private String zipcode;
+        private String street;
+        private String city;
+
+        public Place() {
+        }
+
+        public Place(PlaceType placeType) {
+            this.placeType = placeType;
+        }
+
+        @Enumerated(EnumType.STRING)
+        private PlaceType placeType;
 
         public Integer getId() {
             return id;
@@ -54,14 +70,18 @@ import lombok.Setter;
             this.city = city;
         }
 
-        private String name;
-        private String zipcode;
-        private String street;
-        private String city;
 
-//        @Enumerated(EnumType.STRING)
-//        private PlaceType placeType;
-//
+
+        public PlaceType getPlaceType() {
+            return placeType;
+        }
+
+        public void setPlaceType(PlaceType placeType) {
+            this.placeType = placeType;
+        }
+
+
+
 //        private List<Comment> comments;
 //        private List<Note> notes;
 }
