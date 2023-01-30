@@ -36,8 +36,7 @@ public class PlaceController {
     }
 
     @GetMapping(value = "/places/{placeId}")
-    public @ResponseBody
-    Place getPlace(@PathVariable Integer placeId) {
+    public @ResponseBody Place getPlace(@PathVariable Integer placeId) {
         /*
         PlaceRepository repository = placeRepository; // tworze zmienna repository typu PlaceReposiory, ktora odpowiada za zarzadzanie obiektami place w bazie danych
         Optional<Place> dbResponse = repository.findById(placeId); // chce pobracplace z konkretnym id z bazy danych i zwracany jest m obiekt ty[u optional z placem w srodku
@@ -51,5 +50,12 @@ public class PlaceController {
    @GetMapping(value = "/places") //dlaczego
     public @ResponseBody List<Place> getAllPlaces() {
         return placeRepository.findAll();
+    }
+
+
+
+    @GetMapping("/places/delete")
+    public @ResponseBody Place deletePlace(@PathVariable Integer placeId) {
+        return placeRepository.deleteById(placeId).post;
     }
 }
