@@ -3,8 +3,10 @@ package com.example.thepathproject2.controllers;
 import com.example.thepathproject2.entities.Place;
 import com.example.thepathproject2.models.PlaceType;
 import com.example.thepathproject2.repository.PlaceRepository;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,20 +28,19 @@ public class PlaceController {
 //        place.setId(placeId);
 //        place.setName("La Catina");
 //        return place;
-//    }
-//
-//    @PostMapping("/users")
-//    public User create(@RequestBody User userWithoutId) {
-//        User userWithId = new User(userWithoutId.getUsername(), userWithoutId.getPhone());
-//        users.put(userWithId.getId(), userWithId);;
-//        return userWithId;
-//    }
 
-    @PostMapping("/places")
-    public void create (@RequestBody Place place) {
+
+    //CREATE
+    @PostMapping(value = "/places/save")
+    public void createPlace (@RequestBody Place place) {
       placeRepository.save(place);
     }
 
+    // UPDATE
+    @PutMapping(value = "/places/{placeId}")
+    public Place updatePlace(@RequestBody Place place, @PathVariable Integer placeId) {
+        return placeRepository.save(place);
+    }
 
     @GetMapping(value = "/places/{placeId}")
     public @ResponseBody Place getPlace(@PathVariable Integer placeId) {
