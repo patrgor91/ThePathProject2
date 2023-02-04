@@ -17,11 +17,7 @@ public class NoteController {
     private NoteRepository noteRepository;
 
     @GetMapping(value = "/note/{noteId}")
-    public @ResponseBody
-    Note getNote(@PathVariable Integer noteId) {
-        Note note = new Note();
-        note.setId(noteId);
-        note.setNote(5);
-        return note;
+    public @ResponseBody Note getNote(@PathVariable Integer noteId) {
+        return noteRepository.findById(noteId).get();
     }
 }

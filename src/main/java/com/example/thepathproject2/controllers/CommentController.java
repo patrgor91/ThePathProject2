@@ -16,11 +16,7 @@ public class CommentController {
     private CommentRepository commentRepository;
 
     @GetMapping(value = "/comment/{commentId}")
-    public @ResponseBody
-    Comment getComment(@PathVariable Integer commentId) {
-        Comment comment = new Comment();
-        comment.setId(commentId);
-        comment.setComment("Super miejsce, serdecznie polecam");
-        return comment;
+    public @ResponseBody Comment getComment(@PathVariable Integer commentId) { //zdefiniowanie czy jest
+        return commentRepository.findById(commentId).get(); //wykonuje strzal do bazy danych, to obiekt o konkretnym id, to co pokazuje mi sie w przegladarce
     }
 }
