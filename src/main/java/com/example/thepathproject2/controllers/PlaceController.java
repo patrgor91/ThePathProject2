@@ -5,31 +5,46 @@ import com.example.thepathproject2.models.PlaceType;
 import com.example.thepathproject2.repository.PlaceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 @Controller
 public class PlaceController {
 
     @Autowired
     private PlaceRepository placeRepository;
+    private Map<Long, Place> places = new HashMap<>();
 
-    @GetMapping(value = "/fakeplace/{fakeplaceId}")
-    public @ResponseBody
-    Place getFakePlace(@PathVariable Integer placeId) {
-        Place place = new Place(PlaceType.RESTAURANT);
-        place.setId(placeId);
-        place.setName("La Catina");
-        return place;
+//    @GetMapping(value = "/fakeplace/{fakeplaceId}")
+//    public @ResponseBody
+//    Place getFakePlace(@PathVariable Integer placeId) {
+//        Place place = new Place(PlaceType.RESTAURANT);
+//        place.setId(placeId);
+//        place.setName("La Catina");
+//        return place;
+//    }
+//
+//    @PostMapping("/users")
+//    public User create(@RequestBody User userWithoutId) {
+//        User userWithId = new User(userWithoutId.getUsername(), userWithoutId.getPhone());
+//        users.put(userWithId.getId(), userWithId);;
+//        return userWithId;
+//    }
+
+    @PostMapping(value = "/places")
+    public Place create (@ResponseBody Place placeWithoutId) {
+      Place placeWithId = new Place(placeWithoutId.getPlaceType(), placeWithoutId.getCity(), placeWithoutId.getName(), placeWithoutId.getId(),placeWithoutId.getStreet(), placeWithoutId.getZipcode());
+              places.put(placeWithId.getPlaceType(), placeWithId.getCity(),placeWithId.getCity(), placeWithId.getName(), placeWithId.getId(), placeWithId.getStreet(), placeWithId.getZipcode());
+r             return placeWithId;
     }
 
+
     @GetMapping(value = "/places/{placeId}")
-    public @ResponseBody
-    Place getPlace(@PathVariable Integer placeId) {
+    public @ResponseBody Place getPlace(@PathVariable Integer placeId) {
         /*
         PlaceRepository repository = placeRepository; // tworze zmienna repository typu PlaceReposiory, ktora odpowiada za zarzadzanie obiektami place w bazie danych
         Optional<Place> dbResponse = repository.findById(placeId); // chce pobracplace z konkretnym id z bazy danych i zwracany jest m obiekt ty[u optional z placem w srodku
@@ -40,16 +55,16 @@ public class PlaceController {
         return placeRepository.findById(placeId).get(); // skrocona wersja tego powyzej
     }
 
+    //READ
     @GetMapping(value = "/places") //dlaczego
-    public @ResponseBody
-    List<Place> getAllPlaces() {
+    public @ResponseBody List<Place> getAllPlaces() {
         return placeRepository.findAll();
     }
 
 
-    @GetMapping("/places/{placeId}")
-    public @ResponseBody
-    void deletePlace(@PathVariable Integer placeId) {
+    //DELETE
+    @DeleteMapping("/places/{placeId}")
+    public @ResponseBody void deletePlace(@PathVariable Integer placeId) {
         placeRepository.deleteById(placeId);
     }
 }
