@@ -35,11 +35,9 @@ public class PlaceController {
 //        return userWithId;
 //    }
 
-    @PostMapping(value = "/places")
-    public Place create (@ResponseBody Place placeWithoutId) {
-      Place placeWithId = new Place(placeWithoutId.getPlaceType(), placeWithoutId.getCity(), placeWithoutId.getName(), placeWithoutId.getId(),placeWithoutId.getStreet(), placeWithoutId.getZipcode());
-              places.put(placeWithId.getPlaceType(), placeWithId.getCity(),placeWithId.getCity(), placeWithId.getName(), placeWithId.getId(), placeWithId.getStreet(), placeWithId.getZipcode());
-r             return placeWithId;
+    @PostMapping("/places")
+    public void create (@RequestBody Place place) {
+      placeRepository.save(place);
     }
 
 
