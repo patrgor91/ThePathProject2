@@ -30,6 +30,15 @@ import lombok.Setter;
         @Enumerated(EnumType.STRING)
         private PlaceType placeType;
 
+        public Place(Integer id, String name, String zipcode, String street, String city, PlaceType placeType) {
+            this.id = id;
+            this.name = name;
+            this.zipcode = zipcode;
+            this.street = street;
+            this.city = city;
+            this.placeType = placeType;
+        }
+
         public Integer getId() {
             return id;
         }
