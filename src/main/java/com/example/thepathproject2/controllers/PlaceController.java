@@ -31,7 +31,7 @@ public class PlaceController {
 
 
     //CREATE
-    @PostMapping(value = "/places/save")
+    @PostMapping(value = "/places")
     public void createPlace (@RequestBody Place place) {
       placeRepository.save(place);
     }
