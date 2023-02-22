@@ -39,6 +39,10 @@ import lombok.Setter;
             this.placeType = placeType;
         }
 
+        public Place(String name, String zipcode, String street, String city, PlaceType placeType) {
+        }
+
+
         public Integer getId() {
             return id;
         }

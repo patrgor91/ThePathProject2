@@ -1,5 +1,6 @@
 package com.example.thepathproject2.controllers;
 
+import com.example.thepathproject2.dto.PlaceDto;
 import com.example.thepathproject2.entities.Place;
 import com.example.thepathproject2.models.PlaceType;
 import com.example.thepathproject2.repository.PlaceRepository;
@@ -14,33 +15,33 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Controller
+@RestController
 public class PlaceController {
 
     @Autowired
     private PlaceRepository placeRepository;
-    private Map<Long, Place> places = new HashMap<>();
-
-//    @GetMapping(value = "/fakeplace/{fakeplaceId}")
-//    public @ResponseBody
-//    Place getFakePlace(@PathVariable Integer placeId) {
-//        Place place = new Place(PlaceType.RESTAURANT);
-//        place.setId(placeId);
-//        place.setName("La Catina");
-//        return place;
-
 
     //CREATE
     @PostMapping(value = "/places")
-    public void createPlace (@RequestBody Place place) {
-      placeRepository.save(place);
+    public void createPlace (@RequestBody PlaceDto placeDto) {
+        Place place = PlaceDto.mapToPlace(placeDto);
+        placeRepository.save(place);
+//
+//        @PostMapping(value = "/places")
+//        public void createPlace (@RequestBody Place place) {
+//            placeRepository.save(place);
     }
 
     // UPDATE
     @PutMapping(value = "/places/{placeId}")
-    public Place updatePlace(@RequestBody Place place, @PathVariable Integer placeId) {
-        return placeRepository.save(place);
-    }
+//        public Place updatePlace(@RequestBody PlaceDto placeDto, @PathVariable Integer placeId) {
+//        return placeRepository.save(place);
+     public void updatePlace(@RequestBody PlaceDto placeDto, @PathVariable Integer placeId) {
+        Place place = PlaceDto.mapToPlace(placeDto);
+        place.setId(placeId);
+        placeRepository.save(place);
+    } 
+
 
     @GetMapping(value = "/places/{placeId}")
     public @ResponseBody Place getPlace(@PathVariable Integer placeId) {
