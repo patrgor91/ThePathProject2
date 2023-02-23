@@ -40,6 +40,11 @@ import lombok.Setter;
         }
 
         public Place(String name, String zipcode, String street, String city, PlaceType placeType) {
+            this.name = name;
+            this.zipcode = zipcode;
+            this.street = street;
+            this.city = city;
+            this.placeType = placeType;
         }
 
 

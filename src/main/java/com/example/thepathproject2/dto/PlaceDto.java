@@ -23,7 +23,16 @@ public class PlaceDto {
             return place;
         }
 
-
+    public static PlaceDto mapToPlaceDto(Place place) {
+        PlaceDto placeDto = new PlaceDto(
+                place.getName(),
+                place.getZipcode(),
+                place.getStreet(),
+                place.getCity(),
+                place.getPlaceType()
+        );
+        return placeDto;
+    }
     public PlaceDto(String name, String zipcode, String street, String city, PlaceType placeType) {
         this.name = name;
         this.zipcode = zipcode;

@@ -21,44 +21,49 @@ public class PlaceController {
     @Autowired
     private PlaceRepository placeRepository;
 
-    //CREATE
+    //CREATE - OK
     @PostMapping(value = "/places")
     public void createPlace (@RequestBody PlaceDto placeDto) {
         Place place = PlaceDto.mapToPlace(placeDto);
         placeRepository.save(place);
-//
+
 //        @PostMapping(value = "/places")
 //        public void createPlace (@RequestBody Place place) {
 //            placeRepository.save(place);
     }
 
-    // UPDATE
+    // UPDATE - OK
     @PutMapping(value = "/places/{placeId}")
-//        public Place updatePlace(@RequestBody PlaceDto placeDto, @PathVariable Integer placeId) {
-//        return placeRepository.save(place);
      public void updatePlace(@RequestBody PlaceDto placeDto, @PathVariable Integer placeId) {
         Place place = PlaceDto.mapToPlace(placeDto);
         place.setId(placeId);
         placeRepository.save(place);
-    } 
-
-
-    @GetMapping(value = "/places/{placeId}")
-    public @ResponseBody Place getPlace(@PathVariable Integer placeId) {
-        /*
-        PlaceRepository repository = placeRepository; // tworze zmienna repository typu PlaceReposiory, ktora odpowiada za zarzadzanie obiektami place w bazie danych
-        Optional<Place> dbResponse = repository.findById(placeId); // chce pobracplace z konkretnym id z bazy danych i zwracany jest m obiekt ty[u optional z placem w srodku
-        Place place = dbResponse.get(); // wyciagam obiekt place z odpowiedzi ktora dostalam w bazie danych
-        return place;
-         */
-
-        return placeRepository.findById(placeId).get(); // skrocona wersja tego powyzej
     }
+//        public Place updatePlace(@RequestBody PlaceDto placeDto, @PathVariable Integer placeId) {
+//        return placeRepository.save(place);
+
+    // GET
+    @GetMapping(value = "/places/{placeId}")
+    public @ResponseBody PlaceDto getPlaceDto(@PathVariable Integer placeId) {
+        Place place = placeRepository.findById(placeId).get();
+        return Place.mapToPlaceDto(place); // skrocona wersja tego powyzej
+    }
+    /*
+      PlaceRepository repository = placeRepository; // tworze zmienna repository typu PlaceReposiory, ktora odpowiada za zarzadzanie obiektami place w bazie danych
+      Optional<Place> dbResponse = repository.findById(placeId); // chce pobracplace z konkretnym id z bazy danych i zwracany jest m obiekt ty[u optional z placem w srodku
+      Place place = dbResponse.get(); // wyciagam obiekt place z odpowiedzi ktora dostalam w bazie danych
+      return place;
+       */
+    //public @ResponseBody Place getPlace(@PathVariable Integer placeId) {
+     //   return placeRepository.findById(placeId).get(); // skrocona wersja tego powyzej
 
     //READ
     @GetMapping(value = "/places") //dlaczego
-    public @ResponseBody List<Place> getAllPlaces() {
-        return placeRepository.findAll();
+    public @ResponseBody List<PlaceDto> getAllPlaces() {
+        Place place = placeRepository.findAll();
+        return PlaceDto.mapToPlaceDto();
+        //Place place = PlaceDto.mapToPlace(placeDto);
+       // return placeRepository.findAll();
     }
 
 
